@@ -7,13 +7,13 @@ WORKDIR /infrasim-compute
 # Copy the current directory contents into the container at /app
 ADD . /infrasim-compute
 
-
 # Install dependency
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential libssl-dev libffi-dev python-dev libaio-dev bridge-utils git apt-utils
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y net-tools libnuma-dev libglib2.0-dev libapt-pkg5.0 iputils-ping isc-dhcp-client
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-server
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y vim curl
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y ipmitool
 
 # Upgrade pip and install setuptools
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python-pip
@@ -44,6 +44,8 @@ RUN ["python", "setup.py", "install"]
 # RUN which infrasim
 RUN ["infrasim", "init"]
 
+COPY r730-tiny.yml r730-tiny.yml
+COPY q-d51-tiny.yml q-d51-tiny.yml
 
 ENTRYPOINT service ssh restart && bash
 

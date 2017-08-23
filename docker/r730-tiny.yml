@@ -1,0 +1,59 @@
+---
+#This file is used as InfraSIM configuration file
+name: default
+
+#Supported compute node names:
+#	quanta_d51
+#	quanta_t41
+#	dell_c6320
+#	dell_r630
+#	dell_r730
+#	dell_r730xd
+#	s2600kp
+#	s2600tp
+#	s2600wtt
+type: dell_r730
+
+compute:
+
+    boot:
+        splash: /usr/local/infrasim/data/boot_logo.jpg
+    cpu:
+        #Set node cpu num, the default value is 2
+        quantities: 1
+
+        type: Haswell
+
+    memory:
+        #Set node memory size, the unit is MB.
+        size: 128
+
+    storage_backend:
+        #Set drive list and define drive attributes
+        -
+            type: ahci
+            max_drive_per_controller: 6
+            drives:
+
+            -
+                #Set node disk size, the unit is GB.
+                size: 8
+
+
+    networks:
+        #Set network list and define drive attributes
+        -
+            #Set node network mode for qemu. The options should be:
+            #	nat		--default
+            #	bridge
+            network_mode: bridge
+            network_name: br0
+            device: e1000
+
+            #Set MAC for this network, this MAC is generated with
+            #datetime as random seed, but you can specify yours
+            #
+            # mac: 00:60:16:b8:8e:6c
+
+
+    # cdrom: /dev/sr0
